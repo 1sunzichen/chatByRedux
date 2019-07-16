@@ -1,6 +1,10 @@
  ##需要启动数据库服务
  创建数据库目录D:\mongodb\data，接下来打开cmd命令行窗口，切换到D:\mongodb\bin 目录执行如下命令(其中 --dbpath是指定数据库存放目录，这里要注意有两个 "-"):
 
+## 需要启动 express 服务
+server/server.js node server
+## 最后 启动 npm install 
+## npm start
 mongod --dbpath D:\MongoDB\data
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
