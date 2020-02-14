@@ -4,8 +4,8 @@ import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { getMsgList, recvMsg ,sendMsg,readMsg} from '../../redux/chat.redux';
 import {getChatId} from '../../util';
-import Queue from 'rc-queue-anim';
-const socket = io('ws://192.168.1.5:9093')
+// import Queue from 'rc-queue-anim';
+const socket = io('ws://localhost:9093')
 @connect(
     state => state,
     {
@@ -83,6 +83,8 @@ class Chat extends React.Component {
         console.log(users,"users");
         const chatid=getChatId(index,this.props.user._id);
         const chatmsgs=this.props.chat.chatmsg.filter(v=>v.chatid==chatid)
+        console.log(chatmsgs,"chatmsgs");
+        
         // if(!users[index]){
         //     return null
         // }
@@ -103,7 +105,7 @@ class Chat extends React.Component {
                 >
                     {index}
                 </NavBar>
-                <Queue delay={100}>
+                <div>
 
                 {chatmsgs.map(v=>{
                     //const avatar=require(`../image/${users[v.from].avatar}.png`);
@@ -122,7 +124,7 @@ class Chat extends React.Component {
                         </List>
                     )
                 })}
-                </Queue>
+                </div>
                 {/* {this.state.msg.map((v) => {
                     let tempdata = v + Math.random() * 10
                     return <p key={tempdata}>{v}</p>
@@ -133,9 +135,9 @@ class Chat extends React.Component {
                         placeholder='请输入'
                         value={this.state.text}
                         onChange={v => {
-                            this.setState({
-                                text: v
-                            })
+                                this.setState({
+                                    text: v
+                                })    
                         }}
                         extra={
                             <div>
