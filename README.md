@@ -16,11 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-<<<<<<< 
-### `npm start SUNJIAQI   是主账户`
-=======
 ### `npm start1郑端是蜘蛛11`
->>>>>>> 014ae9431eee602f1272dd9cc163e13b4128bddf
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
