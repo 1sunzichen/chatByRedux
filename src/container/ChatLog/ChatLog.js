@@ -11,7 +11,7 @@ class ChatLog extends React.Component{
 
         return(
             <div>
-               聊天记录
+               这是我们聊天记录 
             </div>
         )
     }

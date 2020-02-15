@@ -83,12 +83,12 @@ class Login extends React.Component{
                             defaultValue="qq"
                              
                              onChange={v=>this.props.handleChange("user",v)}
-                             >用户</InputItem>
+                             >用户爸爸</InputItem>
                             <WhiteSpace/>
                             <InputItem
                              defaultValue="1"
                              onChange={v=>this.props.handleChange("pwd",v)}
-                            >密码</InputItem>
+                            >密码弟弟</InputItem>
                         </List>
                         <Button type="primary"onClick={this.Loginin.bind(this)}>登录</Button>
                          <WhiteSpace/>
