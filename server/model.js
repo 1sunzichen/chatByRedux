@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const DB_URL='mongodb://localhost:27017/imooc';
+const DB_URL='mongodb://49.235.77.104:27017/imooc';
 mongoose.connect(DB_URL);
 // mongoose.connection.on("connected",function(){
 //     console.log("mongo connect success");
