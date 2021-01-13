@@ -32,7 +32,7 @@ Router.post('/update', function (req, res) {
 
   const useid = req.cookies.userid
   if (!useid) {
-    return json.dumps({ code: 1 })
+    return res.json.dumps({ code: 1 })
   }
   const body = req.body
   User.findByIdAndUpdate(useid, body, function (err, doc) {
@@ -116,8 +116,28 @@ Router.get('/getMsgList', function (req, res) {
         avatar: v.avatar,
       }
     })
-
+    console.log(users, 'users', userdoc)
     Chat.find({ $or: [{ from: user }, { to: user }] }, function (err, doc) {
+      if (!err) {
+        return res.json({ code: 0, msgs: doc, users: users })
+      }
+    })
+  })
+})
+//chat redux 点击某个人 获得单个信息
+Router.get('/getMsgListById', function (req, res) {
+  const touserid = req.query.id
+  const user = req.cookies.userid
+  User.find({}, function (error, userdoc) {
+    let users = {}
+    userdoc.forEach((v) => {
+      users[v._id] = {
+        name: v.user,
+        avatar: v.avatar,
+      }
+    })
+    console.log(user, users, 'users', userdoc)
+    Chat.find({ $or: [{ chatid: user + '-' + touserid }, { to: touserid + '-' + user }] }, function (err, doc) {
       if (!err) {
         return res.json({ code: 0, msgs: doc, users: users })
       }

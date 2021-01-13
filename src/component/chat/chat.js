@@ -2,12 +2,13 @@ import React from 'react'
 import io from 'socket.io-client'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList, recvMsg, sendMsg, readMsg } from '../../redux/chat.redux'
+import { getMsgListById, recvMsg, sendMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId, filterArr } from '../../util'
+import _ from 'lodash'
 // import Queue from 'rc-queue-anim';
 const socket = io('ws://localhost:9093')
 @connect((state) => state, {
-  getMsgList,
+  getMsgListById,
   sendMsg,
   recvMsg,
   readMsg,
@@ -15,12 +16,16 @@ const socket = io('ws://localhost:9093')
 class Chat extends React.Component {
   constructor(props) {
     super(props)
+    const index = this.props.match.params.index
+    this.props.getMsgListById(index)
     console.log(this.props, 'this.props')
-
+    const toUser = this.props.chatuser.userlists.filter((v) => String(v._id) === index)
     this.state = {
       text: '',
       msg: [],
       showEmoji: false,
+      index: index,
+      toUser: toUser,
     }
   }
 
@@ -44,7 +49,7 @@ class Chat extends React.Component {
     console.log(this.props.chat.chatmsg)
 
     if (!this.props.chat.chatmsg.length) {
-      this.props.getMsgList()
+      //   this.props.getMsgListById()
       this.props.recvMsg()
     }
     // const to=this.props.match.params.index;
@@ -73,11 +78,11 @@ class Chat extends React.Component {
     console.log(this.state)
     console.log(this.props, 'chat*******')
     const Item = List.Item
-    const index = this.props.match.params.index
-    console.log(index)
+    const { index, toUser } = this.state
     const users = this.props.chat.users
-    console.log(users, 'users')
-    const chatid = getChatId(index, this.props.user._id)
+    // const toUser = this.props.chatuser.userlists.filter((v) => String(v._id) === thisindex)
+    console.log(users, 'users', toUser)
+    const chatid = getChatId(this.state.index, this.props.user._id)
     const chatmsgsTemp = this.props.chat.chatmsg.filter((v) => v.chatid == chatid)
     const chatmsgs = filterArr(chatmsgsTemp, '_id')
     // if(!users[index]){
@@ -97,26 +102,20 @@ class Chat extends React.Component {
             this.props.history.goBack()
           }}
         >
-          {index}
+          {_.get(toUser, '[0]user', index)}
         </NavBar>
         <div>
           {chatmsgs.map((v) => {
             //const avatar=require(`../image/${users[v.from].avatar}.png`);
-            return v.from == index ? (
+            return (
               <List key={v._id + Math.random()}>
                 <Item
-                // thumb={avatar}
+                  className={v.from != index && 'chat-me'}
+                  // thumb={avatar}
                 >
-                  对方发来的：{v.content}
-                </Item>
-              </List>
-            ) : (
-              <List key={v._id + Math.random()}>
-                <Item
-                  //extra={<img src={avatar}/>}
-                  className="chat-me"
-                >
-                  我发的：{v.content}
+                  <p style={{ color: v.history ? 'black' : 'red', margin: 0 }}>
+                    {v.from == index ? '对方发来的' : '我发的'}：{v.content}
+                  </p>
                 </Item>
               </List>
             )

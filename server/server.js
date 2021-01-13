@@ -13,7 +13,7 @@ io.on('connection', function (socket) {
   console.log('user login')
   socket.on('sendMsg', (msg) => {
     const { from, to, message } = msg
-
+    //一开始就确认 了方向 并放入   聊天表 并发送消息
     const chatid = [from, to].sort().join('_')
     Chat.create({ chatid, from, to, content: message }, function (err, doc) {
       io.emit('recvmsg', Object.assign({}, doc._doc))
