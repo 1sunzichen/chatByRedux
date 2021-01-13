@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
-const DB_URL = 'mongodb://106.13.133.210:27017/imooc'
+const DB_URL = 'mongodb://106.13.133.210:27017/imooc -u root -p root'
 mongoose.connect(DB_URL)
 // mongoose.connection.on("connected",function(){
 //     console.log("mongo connect success");
 
 // })
+//db.createUser({user:"root",pwd:"root",roles:[{ role: "readWriteAnyDatabase", db: "imooc" }]})
+
 const models = {
   user: {
     user: {
