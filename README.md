@@ -9,6 +9,9 @@
 
 `npm start`
 
+##  如果连接远程服务器 默认账号密码
+boss 1
+people 1
 ### 如果需要 单独后台服务地址
 https://github.com/1sunzichen/chatByRedux_End
 
