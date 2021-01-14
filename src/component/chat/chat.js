@@ -1,12 +1,12 @@
 import React from 'react'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgListById, recvMsg, sendMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId, filterArr } from '../../util'
 import _ from 'lodash'
 // import Queue from 'rc-queue-anim';
-const socket = io('ws://localhost:9093')
+// const socket = io('ws://localhost:9093')
 @connect((state) => state, {
   getMsgListById,
   sendMsg,
