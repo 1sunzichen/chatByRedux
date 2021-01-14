@@ -1,3 +1,5 @@
+# 技术栈 socket.io+react+redux+express+node+mongodb
+# 框架  create-react-app +express+mongodb
 # 数据库用的是云服务器
 
 ## npm install
